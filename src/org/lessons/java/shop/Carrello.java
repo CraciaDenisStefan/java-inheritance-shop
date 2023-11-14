@@ -3,67 +3,67 @@ package org.lessons.java.shop;
 import java.util.Scanner;
 
 public class Carrello {
-		private Prodotto[] prodotti;
-	    private int numeroProdotti;
+    private Prodotto[] prodotti;
+    private int numeroProdotti;
 
-	    public Carrello() {
-	        prodotti = new Prodotto[5];
-	        setNumeroProdotti(0);
-	    }
+    public Carrello() {
+        prodotti = new Prodotto[5];
+        setNumeroProdotti(0);
+    }
 
-	    public void aggiungiProdotto(Prodotto prodotto) {
-	        if (getNumeroProdotti() < prodotti.length) {
-	            prodotti[getNumeroProdotti()] = prodotto;
-	            setNumeroProdotti(getNumeroProdotti() + 1);
-	        } else {
-	            System.out.println("Carrello pieno, impossibile aggiungere altri prodotti.");
-	        }
-	    }
+    public void aggiungiProdotto(Prodotto prodotto, boolean haTesseraFedelta) {
+        if (getNumeroProdotti() < prodotti.length) {
+            prodotto.setHaTesseraFedelta(haTesseraFedelta);
+            prodotti[getNumeroProdotti()] = prodotto;
+            setNumeroProdotti(getNumeroProdotti() + 1);
+        } else {
+            System.out.println("Carrello pieno, impossibile aggiungere altri prodotti.");
+        }
+    }
 
-	    
-	    public int getNumeroProdotti() {
-	        return numeroProdotti;
-	    }
+    public int getNumeroProdotti() {
+        return numeroProdotti;
+    }
 
-	  
-	    private void setNumeroProdotti(int numeroProdotti) {
-	        this.numeroProdotti = numeroProdotti;
-	    }
+    private void setNumeroProdotti(int numeroProdotti) {
+        this.numeroProdotti = numeroProdotti;
+    }
 
     public void valorizzaCarrello() {
         Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Possiedi una tessera fedeltà? (si/no): ");
+        String rispostaTessera = scanner.nextLine();
+        boolean haTesseraFedelta = rispostaTessera.equalsIgnoreCase("si");
 
         boolean continua = true;
         boolean carrelloPieno = false;
 
         while (continua && !carrelloPieno) {
-           
-
             if (getNumeroProdotti() < prodotti.length) {
-            	
-            	 System.out.println("Inserisci il tipo di prodotto (Smartphone, Televisore, Cuffie): ");
-                 String tipoProdotto = scanner.nextLine();
+                System.out.println("Inserisci il tipo di prodotto (Smartphone, Televisore, Cuffie): ");
+                String tipoProdotto = scanner.nextLine();
 
-                 System.out.println("Inserisci il nome: ");
-                 String nome = scanner.nextLine();
+                System.out.println("Inserisci il nome: ");
+                String nome = scanner.nextLine();
 
-                 System.out.println("Inserisci la descrizione: ");
-                 String descrizione = scanner.nextLine();
+                System.out.println("Inserisci la descrizione: ");
+                String descrizione = scanner.nextLine();
 
-                 System.out.println("Inserisci il prezzo: ");
-                 double prezzo = scanner.nextDouble();
+                System.out.println("Inserisci il prezzo: ");
+                double prezzo = scanner.nextDouble();
 
-                 System.out.println("Inserisci l'IVA: ");
-                 double iva = scanner.nextDouble();
-                 scanner.nextLine();
-            	
+                System.out.println("Inserisci l'IVA: ");
+                double iva = scanner.nextDouble();
+                scanner.nextLine();
+
                 if ("smartphone".equalsIgnoreCase(tipoProdotto)) {
                     System.out.println("Inserisci IMEI: ");
                     String imei = scanner.nextLine();
                     System.out.println("Inserisci quantità di memoria: ");
                     int memoria = scanner.nextInt();
                     scanner.nextLine();
-                    aggiungiProdotto(new Smartphone(nome, descrizione, prezzo, iva, imei, memoria));
+                    aggiungiProdotto(new Smartphone(nome, descrizione, prezzo, iva, imei, memoria), haTesseraFedelta);
 
                 } else if ("televisore".equalsIgnoreCase(tipoProdotto)) {
                     System.out.println("Inserisci dimensioni: ");
@@ -72,7 +72,7 @@ public class Carrello {
                     System.out.println("Il televisore è smart? (si/no)  ");
                     String rispostaSmart = scanner.nextLine();
                     boolean isSmart = rispostaSmart.equalsIgnoreCase("si");
-                    aggiungiProdotto(new Televisori(nome, descrizione, prezzo, iva, dimensioni, isSmart));
+                    aggiungiProdotto(new Televisori(nome, descrizione, prezzo, iva, dimensioni, isSmart), haTesseraFedelta);
 
                 } else if ("cuffie".equalsIgnoreCase(tipoProdotto)) {
                     System.out.println("Inserisci colore: ");
@@ -80,7 +80,7 @@ public class Carrello {
                     System.out.println("Le cuffie sono wireless? (si/no) ");
                     String rispostaWireless = scanner.nextLine();
                     boolean isWireless = rispostaWireless.equalsIgnoreCase("si");
-                    aggiungiProdotto(new Cuffie(nome, descrizione, prezzo, iva, colore, isWireless));
+                    aggiungiProdotto(new Cuffie(nome, descrizione, prezzo, iva, colore, isWireless), haTesseraFedelta);
 
                 } else {
                     System.out.println("Tipo di prodotto non valido.");
@@ -116,6 +116,4 @@ public class Carrello {
         carrello.valorizzaCarrello();
         System.out.println(carrello.toString());
     }
-
-
 }

@@ -27,6 +27,13 @@ public class Televisori extends Prodotto {
     }
 
     @Override
+    protected double calcolaScontoPersonalizzato() {
+        if (!isSmart()) {
+            return 0.10;
+        }
+        return 0.02;
+    }
+    @Override
     public String toString() {
         return super.toString() + "Dimensioni: " + getDimensioni() + " pollici\n" + "Smart: " + (isSmart() ? "si" : "no") + "\n";
     }

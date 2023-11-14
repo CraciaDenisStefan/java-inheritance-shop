@@ -27,6 +27,13 @@ public class Cuffie extends Prodotto {
 	public void setWireless(boolean isWireless) {
 		this.isWireless = isWireless;
 	}
+	 @Override
+	    protected double calcolaScontoPersonalizzato() {
+	        if (!isWireless) {
+	            return 0.07;
+	        }
+	        return 0.02;
+	    }
 	
 	@Override
     public String toString() {

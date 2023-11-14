@@ -27,6 +27,14 @@ public class Smartphone extends Prodotto {
     }
 
     @Override
+    protected double calcolaScontoPersonalizzato() {
+        if (getMemoria() < 32) {
+            return 0.05;
+        }
+        return 0.02;
+    }
+
+    @Override
     public String toString() {
         return super.toString() + "IMEI: " + getImei() + "\n" + "Memoria: " + getMemoria() + " GB\n";
     }
